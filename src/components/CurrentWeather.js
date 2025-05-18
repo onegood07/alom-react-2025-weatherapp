@@ -1,17 +1,23 @@
-import React from "react";
-import {
-  CurrentWeatherWrapper,
-  Temperature,
-  WeatherCode,
-} from "./styles/StyledComponents";
-import { getWeatherDescription } from "../utils/weather";
+import { CurrentWeatherWrapper, Temperature, WeatherCode } from "./styles/StyledComponents";
+import { getWeatherDescription, formatCurrentData } from "../utils/weather";
+import { DEGREE_CELSIUS, LOADING } from "../constants/uiConstants";
 
 const CurrentWeather = ({ weatherData, isLoading }) => {
+  const currentData = formatCurrentData(weatherData);
+
   if (isLoading) {
-    return <div>채워주세요</div>;
+    return <div>{LOADING}</div>;
   }
 
-  return <div>채워주세요</div>;
+  return (
+    <CurrentWeatherWrapper>
+      <Temperature>
+        {currentData.temperature}
+        {DEGREE_CELSIUS}
+      </Temperature>
+      <WeatherCode>{getWeatherDescription(currentData.weatherCode)}</WeatherCode>
+    </CurrentWeatherWrapper>
+  );
 };
 
 export default CurrentWeather;
