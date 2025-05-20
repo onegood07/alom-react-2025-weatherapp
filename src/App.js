@@ -3,6 +3,7 @@ import { Container } from "./components/styles/StyledComponents";
 import CurrentWeather from "./components/CurrentWeather";
 import HourlyForecast from "./components/HourlyForecast";
 import DailyForecast from "./components/DailyForecast";
+import Spinner from "./components/Spinner";
 
 function App() {
   const API_URL =
@@ -26,9 +27,10 @@ function App() {
 
   return (
     <Container>
-      <CurrentWeather weatherData={weatherData} isLoading={isLoading} />
+      {isLoading && <Spinner />}
       {!isLoading && weatherData && (
         <>
+          <CurrentWeather weatherData={weatherData} />
           <HourlyForecast weatherData={weatherData} />
           <DailyForecast weatherData={weatherData} />
         </>
