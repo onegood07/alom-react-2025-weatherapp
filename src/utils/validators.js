@@ -1,4 +1,4 @@
-export const isToDay = (dateInData, currentDate) => {
+export const isToday = (dateInData, currentDate) => {
   return (
     dateInData.getFullYear() === currentDate.getFullYear() &&
     dateInData.getMonth() === currentDate.getMonth() &&
