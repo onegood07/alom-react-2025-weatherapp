@@ -1,4 +1,4 @@
-import { isToday, isWithin12Hours, isInCurrentTime } from "./validators";
+import { isValidHourlyData, isInCurrentTime } from "./validators";
 import { getWeekdayName } from "./weeks";
 import { WEATHER_CODE } from "../constants/weatherCodes";
 import { FAILED_LOAD_DATA } from "../constants/errorMessage";
@@ -10,7 +10,7 @@ export const getWeatherDescription = (code) => {
 
 export const formatCurrentData = (weatherData) => {
   if (!weatherData) {
-    errorLog("formatCurrentData", FAILED_LOAD_DATA);
+    errorLog(formatCurrentData.name, FAILED_LOAD_DATA);
     return;
   }
 
@@ -26,21 +26,17 @@ export const formatCurrentData = (weatherData) => {
 
 export const formatHourlyData = (weatherData) => {
   if (!weatherData) {
-    errorLog("formatHourlyData", FAILED_LOAD_DATA);
+    errorLog(formatHourlyData.name, FAILED_LOAD_DATA);
     return;
   }
   const currentDate = new Date();
-  const result = [];
+  const collectedForecasts = [];
 
   weatherData.hourly.time.forEach((time, index) => {
     const hourlyDate = new Date(time);
 
-    if (
-      isToday(hourlyDate, currentDate) &&
-      isWithin12Hours(hourlyDate, currentDate) &&
-      result.length < 12
-    ) {
-      result.push({
+    if (isValidHourlyData(hourlyDate, currentDate, collectedForecasts)) {
+      collectedForecasts.push({
         timeString: hourlyDate.toISOString(),
         hour: hourlyDate.getHours(),
         temperature: Math.floor(weatherData.hourly.temperature_2m[index]),
@@ -49,12 +45,12 @@ export const formatHourlyData = (weatherData) => {
     }
   });
 
-  return result;
+  return collectedForecasts;
 };
 
 export const formatDailyData = (weatherData) => {
   if (!weatherData) {
-    errorLog("formatDailyData", FAILED_LOAD_DATA);
+    errorLog(formatDailyData.name, FAILED_LOAD_DATA);
     return;
   }
 
