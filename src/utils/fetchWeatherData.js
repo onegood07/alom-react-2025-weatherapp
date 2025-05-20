@@ -47,8 +47,6 @@ export const fetchDailyData = (weatherData) => {
   }
 
   const collectedForecasts = weatherData.daily.time.map((time, index) => {
-    const dailyDate = new Date(time);
-
     return {
       time: new Date(time),
       temperature: weatherData.daily.temperature_2m_max[index],
