@@ -27,7 +27,14 @@ function App() {
 
   return (
     <Container>
-      {isLoading && <Spinner />}
+      {(isLoading || !weatherData) && <Spinner />}
+      {!isLoading && weatherData && (
+        <>
+          <CurrentWeather weatherData={weatherData} />
+          <HourlyForecast weatherData={weatherData} />
+          <DailyForecast weatherData={weatherData} />
+        </>
+      )}
       {!isLoading && weatherData && (
         <>
           <CurrentWeather weatherData={weatherData} />
