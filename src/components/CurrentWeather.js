@@ -1,5 +1,5 @@
 import { CurrentWeatherWrapper, Temperature, WeatherCode } from "./styles/StyledComponents";
-import { getWeatherDescription, formatCurrentData } from "../utils/weather";
+import { getWeatherDescription, formatCurrentData } from "../utils/formatWeatherData";
 import { DEGREE_CELSIUS, LOADING } from "../constants/uiConstants";
 
 const CurrentWeather = ({ weatherData, isLoading }) => {

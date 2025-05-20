@@ -1,7 +1,7 @@
 import { WEEKDAYS } from "../constants/weekdays";
 import { WEATHER_CODE } from "../constants/weatherCodes";
 
-export const getWeekdayNameDescription = (dayIndex) => {
+export const getWeekdayDescription = (dayIndex) => {
   return WEEKDAYS[dayIndex] || "알 수 없음";
 };
 
